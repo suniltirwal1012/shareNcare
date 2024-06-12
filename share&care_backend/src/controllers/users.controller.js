@@ -133,19 +133,21 @@ const verifyOtp = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
     if (!email) {
-        throw new ApiError(400, "Username/email is required.")
+        throw new ApiError(401, "Username/email is required.")
     }
 
     const user = await User.findOne({ email })
 
     if (!user) {
-        throw new ApiError(400, "User not found with this email.")
+        return res.status(404).json(new ApiError(404, {}, "User not found with this email."))
+        // throw new ApiError(404, "User not found with this email.")
     }
 
     const isPasswordValid = await user.isPasswordCorrect(password)
 
     if (!isPasswordValid) {
-        throw new ApiError(401, "Invalid user credentials.Please try to login again with correct details.")
+        return res.status(401).json(new ApiError(401, {}, "Invalid user credentials.Please try to login again with correct details."))
+        //throw new ApiError(401, "Invalid user credentials.Please try to login again with correct details.")
     }
 
 

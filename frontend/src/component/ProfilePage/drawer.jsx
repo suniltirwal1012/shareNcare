@@ -7,7 +7,6 @@ import UserContext from "../../context/userContext";
 function Drawer() {
 
     const { user } = useContext(UserContext);
-    console.log(user);
 
     return (
         <div className="drawer">

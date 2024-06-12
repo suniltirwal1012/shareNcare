@@ -12,7 +12,7 @@ class ApiError extends Error {
         this.success = false;
         this.errors = errors;
 
-        console.log(`ApiError created: ${message}`);  
+        //console.log(`ApiError created: ${message}`);  
 
 
         if (stack) {
