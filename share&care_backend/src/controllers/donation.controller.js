@@ -19,16 +19,13 @@ const saveDonations = asyncHandler(async (req, res) => {
     const { foodType, foodTime, sourceType, quantity, address, date, time } = req.body
 
 
-    //validating date type.
-    if(!validator.isDate(date)){
-        throw new ApiError(401,"Invalid date format.")
+
+
+    //validating form data
+    if (!foodType || !foodTime || !sourceType || !quantity || !address || !date || !time) {
+        throw new ApiError(400, "Please fill all the details.")
     }
-
-
-
-    if ([foodType, foodTime, sourceType, quantity, address, date, time].some(field => !field?.trim())) {
-        throw new ApiError(400, "All fields are required.");
-    }
+      
 
 
     const donations=await Donations.create({

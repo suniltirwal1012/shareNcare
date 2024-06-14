@@ -8,6 +8,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { Donations } from "../models/donations.model.js";
 import mongoose from "mongoose";
 import crypto from "crypto";
+import { Server } from "http";
 
 
 const otpStorage = new Map();
@@ -52,15 +53,26 @@ const registerUser = asyncHandler(async (req, res) => {
     const { email, name, dob, password, phoneno, nationality, address, gender } = req.body;
 
     if ([email, name, dob, password, phoneno, nationality, address, gender].some(field => !field?.trim())) {
-        throw new ApiError(400, "All fields are required.");
+        //throw new ApiError(400, "All fields are required.");
+        return res.status(400).json(new ApiError(400, {}, "All fields are required."));
     }
+
+    if(!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)){
+        return res.status(400).json(new ApiError(400, {}, "Invalid email address."));
+    }
+
+    if(!/^[0-9]{10}$/.test(phoneno)){
+        return res.status(400).json(new ApiError(400, {}, "Invalid phone number."));
+    }
+
 
     const existedUser = await User.findOne({
         $or: [{ phoneno }, { email }]
     });
 
     if (existedUser) {
-        throw new ApiError(403, "User with email or phone number already exists.");
+        //throw new ApiError(403, "User with email or phone number already exists.");
+        return res.status(403).json(new ApiError(403, {}, "User with email or phone number already exists."));
     }
 
     let avatarLocalPath;
@@ -70,7 +82,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const otp = generateOTP();
     if (!otp) {
-        throw new ApiError(401, "OTP not sent.")
+        //throw new ApiError(401, "OTP not sent.")
+        return res.status(401).json(new ApiError(401, {}, "OTP not sent."));
     }
     otpStorage.set(email, { otp, email, name, dob, password, phoneno, nationality, address, gender, avatarLocalPath, expiresAt: Date.now() + 15 * 60 * 1000 });
 
@@ -84,17 +97,20 @@ const verifyOtp = asyncHandler(async (req, res) => {
     const { email, otp } = req.body;
 
     if (!email || !otp) {
-        throw new ApiError(400, "Email and OTP are required.");
+        //throw new ApiError(400, "Email and OTP are required.");
+        return res.status(400).json(new ApiError(400, {}, "Email and OTP are required."));
     }
 
     const storedData = otpStorage.get(email);
 
     if (!storedData) {
-        throw new ApiError(400, "OTP expired or invalid.");
+       // throw new ApiError(400, "OTP expired or invalid.");
+         return res.status(400).json(new ApiError(400, {}, "OTP expired or invalid."));
     }
 
     if (storedData.otp !== otp) {
-        throw new ApiError(400, "Invalid OTP.");
+        //throw new ApiError(400, "Invalid OTP.");
+        return res.status(400).json(new ApiError(400, {}, "Invalid OTP."));
     }
 
     const { name, dob, password, phoneno, nationality, address, gender, avatarLocalPath } = storedData;
@@ -115,7 +131,9 @@ const verifyOtp = asyncHandler(async (req, res) => {
             password
         });
     } catch (error) {
-        throw new ApiError(503, "Something went wrong while registering the user.");
+        //throw new ApiError(503, "Something went wrong while registering the user.");
+        console.log(error);
+        return res.status(503).json(new ApiError(503, {}, "Something went wrong while registering the user."));
     }
 
     otpStorage.delete(email);
@@ -123,7 +141,8 @@ const verifyOtp = asyncHandler(async (req, res) => {
     const createdUser = await User.findById(user._id).select("-password -refreshToken");
 
     if (!createdUser) {
-        throw new ApiError(503, "Something went wrong while registering the user.");
+        //throw new ApiError(503, "Something went wrong while registering the user.");
+        return res.status(503).json(new ApiError(503, {}, "Something went wrong while registering the user."));
     }
 
     return res.status(201).json(new ApiResponse(201, createdUser, "User registered successfully."));
@@ -157,7 +176,8 @@ const loginUser = asyncHandler(async (req, res) => {
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        
     }
 
     return res
@@ -416,6 +436,13 @@ const forgotPassword=asyncHandler(async(req,res)=>{
     )
 })
 
+const findUserById = asyncHandler(async (req, res) => {
+    const {userId}  = req.body;
+    const donar=await User.findById(userId).select("-password -refreshToken")
+
+    return res.status(200).json(new ApiResponse(200, donar, "donar details found successfully."));
+})
+
 
 export {
     registerUser,
@@ -428,5 +455,6 @@ export {
     updateUserAvatar,
     donationsDoneByUser,
     volunteeringByUser,
-    forgotPassword
+    forgotPassword,
+    findUserById
 };

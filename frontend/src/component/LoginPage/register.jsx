@@ -47,6 +47,8 @@ function Login() {
       setMessage("");
       setShowSuccessMessage(true);
       setTimeout(() => {
+        console.log("Logged in successfully");
+        console.log(res.data);
         navigateToProfile("/profile");
       }, 2000);
     } catch (error) {
@@ -112,13 +114,27 @@ function Login() {
             </p>
           )}
 
+          {/* showing the success and errror messages */}
+
           {errorMessage && (
             <div
               className="mt-4 flex items-center bg-red-50 border-l-4 border-red-400 p-4 shadow-md rounded-lg"
               role="alert"
             >
               <div className="flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
               </div>
               <div className="ml-3">
                 <p className="text-sm md:text-lg font-medium text-red-700">
@@ -148,13 +164,42 @@ function Login() {
           )}
 
           {showSuccessMessage && (
-            <div className="flex flex-row justify-center items-center">
-            <p className="text-green-600 text-2xl font-mono flex flex-col justify-center items-center mt-8">
-              Successfully logged in. Redirecting..
-            </p>
-            <img src="https://cdn2.iconfinder.com/data/icons/greenline/512/check-1024.png" className="flex items-baseline w-12 h-12"></img>
-            </div>
-          )}
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto text-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="animate-spin h-10 w-10 text-primary mx-auto mb-4"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V2.5M20 21.5a8 8 0 01-8-8V4"
+        ></path>
+      </svg>
+      <h2 className="text-2xl font-bold mb-2">Verifying...</h2>
+      <p className="text-gray-600 mb-4">
+        Please wait while we process your request.
+      </p>
+      
+      {/* <button
+        className="btn btn-secondary"
+        onClick={() => setIsUploading(false)}
+      >
+        Cancel
+      </button> */}
+    </div>
+  </div>
+)}
         </form>
         <div className="flex justify-center flex-wrap items-center gap-10">
           <div className="">

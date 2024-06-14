@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Modal from './modalForContact';
+import axios from 'axios';
 
 export default function Contact() {
-    const [formData, setFormData] = useState({ name: '', email: '', tel: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', phoneno: '' });
     const [modalContent, setModalContent] = useState({ show: false, title: '', message: '' });
 
     const handleChange = (e) => {
@@ -16,10 +17,8 @@ export default function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/Contact?name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}`, {
-                method: 'GET',
-            });
-            if (response.ok) {
+            const response = await axios.post("http://localhost:8000/api/v1/contact", formData);
+            if (response.statusText) {
                 setModalContent({
                     show: true,
                     title: 'Success',
@@ -158,15 +157,15 @@ export default function Contact() {
                                 />
                             </div>
                             <div className="flex flex-col mt-2">
-                                <label htmlFor="tel" className="hidden">
+                                <label htmlFor="phoneno" className="hidden">
                                     Telephone Number
                                 </label>
                                 <input
-                                    type="tel"
-                                    name="tel"
-                                    id="tel"
+                                    type="phoneno"
+                                    name="phoneno"
+                                    id="phoneno"
                                     placeholder="Telephone Number"
-                                    value={formData.tel}
+                                    value={formData.phoneno}
                                     onChange={handleChange}
                                     className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                                 />

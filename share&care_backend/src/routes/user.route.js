@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { loginUser, logoutUser, registerUser,verifyOtp,changePassword,updateUserAvatar,donationsDoneByUser,volunteeringByUser,forgotPassword } from '../controllers/users.controller.js';
+import { loginUser, logoutUser, registerUser,findUserById,verifyOtp,changePassword,updateUserAvatar,donationsDoneByUser,volunteeringByUser,forgotPassword } from '../controllers/users.controller.js';
 import {upload} from "../middlewares/multer.middleware.js";
 import { verifyJWT } from '../middlewares/auth.middleware.js';
 
@@ -29,6 +29,7 @@ router.route("/updateUserAvatar").post(
     updateUserAvatar)
 
 router.route("/forgotPassword").post(forgotPassword)
+router.route("/findUserById").post(findUserById)
 
 
 //secured route

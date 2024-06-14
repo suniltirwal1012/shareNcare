@@ -21,8 +21,14 @@ import PaymentOptions from './component/ProfilePage/paymentOptions.jsx'
 import DoorstepCollection from './component/StaticPages/doorstepCollection.jsx'
 import FoodgradeInspection from './component/StaticPages/foodgradeInspection.jsx'
 import FoodDistribution from './component/StaticPages/foodDistribution.jsx'
+import ChangePassword from './component/ProfilePage/changePassword.jsx';
 
-
+import axios from 'axios';
+import ErrorPage from './component/Utils/erroPage.jsx';
+import SuccessPage from './component/Utils/successPage.jsx';
+import DonationCard from './component/ProfilePage/donations.jsx';
+import DonationsByUser from './component/ProfilePage/donations.jsx';
+import VolunteeringByUser from './component/ProfilePage/volunteerings.jsx';
 
 
 
@@ -43,6 +49,14 @@ const router = createBrowserRouter([
       {
         path:"volunteers",
         element:<Volunteering/>
+      },
+      {
+        path:"errorPage",
+        element:<ErrorPage/>
+      },
+      {
+        path:"successPage",
+        element:<SuccessPage/>
       },
       {
         path:"location",
@@ -67,6 +81,10 @@ const router = createBrowserRouter([
       {
         path:"payment",
         element:<PaymentOptions/>
+      },
+      {
+        path:"changePassword",
+        element:<ChangePassword/>
       },
       {
         path:"doorstepCollection",
@@ -103,11 +121,21 @@ const router = createBrowserRouter([
       {
         path:"unread",
         element:<Unread/>
+      },
+      {
+        path:"donationsByUser",
+        element:<DonationsByUser/>
+      },
+      {
+        path:"volunteeringsByUser",
+        element:<VolunteeringByUser/>
       }
-     
     ]
   }
 ])
+
+axios.defaults.withCredentials = true;
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

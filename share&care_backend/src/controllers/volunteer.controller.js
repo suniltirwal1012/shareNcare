@@ -11,8 +11,6 @@ import { Notifications } from "../models/notifications.model.js";
 const volunteeringOpportunities = asyncHandler(async (req, res) => {
     
         const donations = await Donations.find({ isDonated: false });
-        console.log("Maneesh")
-        console.log(donations)
 
         if (!donations || donations.length === 0) {
             throw new ApiError(401,"No volunteering opportunities are present now.")

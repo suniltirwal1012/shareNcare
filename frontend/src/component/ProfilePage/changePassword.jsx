@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function ForgotPassword() {
-  const [email, setEmail] = useState("");
+function ChangePassword() {
+  const [newPassword, setnewPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -15,17 +15,14 @@ function ForgotPassword() {
     setMessage("");
     
     try {
-        console.log(email);
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/forgotPassword",
-        { email: email }
+        "http://localhost:8000/api/v1/users/changePassword",
+        { newPassword: newPassword }
       );
-      console.log(response);
-      setMessage("New Password has been sent to your email.Kindly login and change your password.");
+      setMessage("New Password has been set.");
     } catch (err) {
-      setError("Error sending password reset link. Please try again.");
-      //console.error("Error submitting the form:", err);
-      console.log("Error submitting the form:", err);
+      setError("Error setting new password. Please try again.");
+      console.error("Error submitting the form:", err);
 
     }
     
@@ -37,7 +34,7 @@ function ForgotPassword() {
       <div className="w-full flex flex-col gap-9">
         <div className="flex justify-center items-center">
           <h1 className="text-4xl footer-title text-slate-800">
-            Forgot Password
+            Change Password
           </h1>
         </div>
         <form
@@ -46,15 +43,15 @@ function ForgotPassword() {
         >
           <label className="form-control w-full max-w-xs">
             <div className="label">
-              <span className="label-text text-xl font-mono">Email Id: </span>
+              <span className="label-text text-xl font-mono">newPassword: </span>
               <span className="label-text-alt">required</span>
             </div>
             <input
-              type="email"
+              type="newPassword"
               placeholder="eg: johnsmith@mail.com"
               className="input input-bordered w-full max-w-xs"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setnewPassword(e.target.value)}
               required
             />
           </label>
@@ -66,7 +63,7 @@ function ForgotPassword() {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Get Password"}
+              {isLoading ? "Sending..." : "Set Password"}
             </button>
           </div>
         </form>
@@ -84,4 +81,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default ChangePassword;

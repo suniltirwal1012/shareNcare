@@ -1,19 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import Card from "./donateCard";
+import DonationCard from "./donationCard";
 
-function Volunteering() {
+function VolunteeringByUser() {
   const [data, setData] = useState(null);
 
   async function fetchVolunteerData() {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/volunteering",
+        "http://localhost:8000/api/v1/users/volunteeringByUser",
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         }
       );
 
@@ -22,7 +23,7 @@ function Volunteering() {
       }
 
       const res = await response.json();
-      setData(res.data);
+      setData(res.data.volunteering);
     } catch (error) {
       console.error("Error fetching volunteer data:", error);
     }
@@ -36,16 +37,17 @@ function Volunteering() {
 
   return (
     <div className="flex flex-col flex-wrap justify-center items-center md:gap-12 gap-9 mt-12">
-      <div className="flex justify-center items-center">
-        <h1 className="md:text-5xl  text-3xl font-mono">
-          Volunteering Opportunities
+      <div className="flex justify-center items-center p-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-mono text-center">
+          Volunteerings Offered By You
         </h1>
       </div>
+
       <div>
         <div className="flex flex-col gap-6 mb-12">
           {data &&
             data.map((obj, index) => (
-              <Card key={index} index={index+1} data={obj} />
+              <DonationCard key={index} index={index + 1} data={obj} />
             ))}
         </div>
       </div>
@@ -53,4 +55,4 @@ function Volunteering() {
   );
 }
 
-export default Volunteering;
+export default VolunteeringByUser;

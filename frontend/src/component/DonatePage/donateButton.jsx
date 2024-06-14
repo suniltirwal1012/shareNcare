@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext,useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { NavLink } from 'react-router-dom';
@@ -12,8 +12,10 @@ function DonateButton() {
     const [selectedSourceType, setSelectedSourceType] = useState('');
     const [date, onChange] = useState(new Date());
     const [time, setTime] = useState('');
-    const { add, user } = useContext(UserContext);
+    const { add, user,setAdd } = useContext(UserContext);
 
+
+    
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const navigate = useNavigate();
@@ -22,13 +24,24 @@ function DonateButton() {
         setIsDialogOpen(true);
     };
 
+    const handleAddressChange = (event) => {
+        setAdd(event.target.value); // Update the address state
+    };
     
-    const handleConfirm = () => {
+    const handleConfirm =() => {
         setIsDialogOpen(false);
-        // Redirect to home page after a short delay
-        setTimeout(() => {
-            navigate('/');
-        }, 500);
+        const formData = {
+            foodType: selectedFoodType,
+            foodTime: selectedFoodTime,
+            quantity: quantity,
+            sourceType:selectedSourceType,
+            date,
+            time,
+            address: add ,
+        };    
+        maneesh(formData);
+    
+       
     };
 
     const handleCancel = () => {
@@ -45,36 +58,30 @@ function DonateButton() {
 
     // Function to handle changes in the quantity input
     const handleQuantityChange = (event) => {
-        setQuantity(parseInt(event.target.value)); // Convert input value to integer and update state
+        setQuantity(parseInt(event.target.value));
     };
 
-    const handleDonate = (sourceType) => {
+    const handleDonate = () => {
         handleAcceptClick();
-        const formData = {
-            foodType: selectedFoodType,
-            foodTime: selectedFoodTime,
-            quantity: quantity,
-            email: user.email || "",
-            name: user.name || "",
-            phoneno: user.phoneno || "",
-            sourceType,
-            date,
-            time,
-            address: add,
-        };
-
-        console.log("Form Data:", formData);
-        maneesh(formData);
+       
     };
 
 
     const maneesh = async (formData) => {
         try {
-            const res = await axios.post('http://localhost:8080/donate', formData);
-            console.log("Hello");
+            const res = await axios.post('http://localhost:8000/api/v1/donations/donate', formData, { withCredentials: true });
+            console.log(res.data);
+            setAdd('');
+            navigate('/successPage');
             
+
         } catch (err) {
             console.log(err.response);
+            setAdd('');
+            navigate('/errorPage');
+            
+        }finally{
+            localStorage.removeItem('donateFormData');
         }
     };
 
@@ -248,7 +255,7 @@ function DonateButton() {
                             <div className="p-4 md:p-12">
                                 <label className="form-control w-full max-w-xs">
                                     <span className="label-text text-xl font-mono">Address: </span>
-                                    <input type="text" name="address" value={add} placeholder="Address" className="input input-bordered w-full max-w-xs" />
+                                    <input type="text" name="address" value={add} onChange={handleAddressChange} placeholder="Address" className="input input-bordered w-full max-w-xs" />
                                     <div className="pt-4">
                                         <NavLink to="../location">
                                             <button className="btn btn-block btn-primary">Choose Location on Map</button>

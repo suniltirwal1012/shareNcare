@@ -8,6 +8,7 @@ function Otp() {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOtpChange = (e) => {
         setOtp(e.target.value);
@@ -15,20 +16,22 @@ function Otp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
-            const response = await axios.put('http://localhost:8080/verify-account', null, {
-                params: {
-                    email: mail,
-                    otp: otp
-                }
+            console.log('Submitting the form');
+            const response = await axios.post('http://localhost:8000/api/v1/users/verify-otp', {
+                email: mail,
+                otp: otp
             });
+            console.log('Response:', response);
             setMessage('Account has been created successfully.Please login to continue.');
             setError('');
-            
+            setIsLoading(false);
         } catch (err) {
             setError('Error verifying account. Please try again with different email id.');
             setMessage('');
             console.error('Error submitting the form:', err);
+            setIsLoading(false);
         }
     };
 
@@ -67,7 +70,15 @@ function Otp() {
                         />
                     </label>
                     <div className="flex justify-center">
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                            {isLoading ? (
+                                <div className="flex items-center">
+                                    <span className="loading loading-dots loading-sm mr-2"></span> Verifying...
+                                </div>
+                            ) : (
+                                'Submit'
+                            )}
+                        </button>
                     </div>
                     {error && <p className="text-red-500">{error}</p>}
                     {message && <p className="text-green-500">{message}</p>}

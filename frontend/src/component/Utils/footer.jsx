@@ -1,7 +1,13 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../../context/userContext";
+import { useContext } from "react";
+
+
 
 function Footer() {
+    const { user } = useContext(UserContext);
+
+
     return (
         <footer className="footer p-10 bg-base-300 text-base-content">
             <nav>
@@ -14,7 +20,7 @@ function Footer() {
             <nav>
                 <h6 className="footer-title">Quick links</h6>
                 <NavLink className="link link-hover" to="login">Login/Register</NavLink>
-                <NavLink className="link link-hover" to="team">Forgot Password</NavLink>
+                <NavLink className="link link-hover" to={user ? "changePassword" : "forgotPassword"}>{user?"Change Password":"Forgot Password"}</NavLink>
                 <NavLink className="link link-hover" to="contact">Contact Us</NavLink>
                 <a className="link link-hover">About us</a>
             </nav>

@@ -71,7 +71,7 @@ const readingMessage = asyncHandler(async (req, res) => {
     return res
     .status(200)
     .json(
-        new ApiResponse(200,"Message read successfully.")
+        new ApiResponse(200,{messages},"Message read successfully.")
     )
 
 })
