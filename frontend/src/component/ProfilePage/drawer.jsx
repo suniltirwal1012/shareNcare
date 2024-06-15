@@ -13,7 +13,7 @@ function Drawer() {
     try {
       console.log("Logging out...");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/logout",
+        "/api/v1/users/logout",
         {},
         { withCredentials: true }
       );
@@ -68,7 +68,7 @@ function Drawer() {
       console.log("Uploading avatar...");
       setIsUploading(true);
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/updateUserAvatar",
+        "/api/v1/users/updateUserAvatar",
         formData,
         {
           headers: {

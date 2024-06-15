@@ -69,7 +69,7 @@ function SignUp() {
     }
 
     await axios
-      .post("http://localhost:8000/api/v1/users/register", formDataToSend, {
+      .post("/api/v1/users/register", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -6,7 +6,7 @@ function Unread() {
     const [messages,setMessages]=useState([])
 
     async function getUnreadMessages(){
-        const res=await axios.put("http://localhost:8000/api/v1/notifications/readingMessage")
+        const res=await axios.put("/api/v1/notifications/readingMessage")
         console.log(res.data.data.messages)
         setMessages(res.data.data.messages)
     }

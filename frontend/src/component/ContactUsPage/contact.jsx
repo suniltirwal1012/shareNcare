@@ -17,7 +17,7 @@ export default function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/contact", formData);
+            const response = await axios.post("/api/v1/contact", formData);
             if (response.statusText) {
                 setModalContent({
                     show: true,

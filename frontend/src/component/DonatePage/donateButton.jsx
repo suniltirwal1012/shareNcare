@@ -69,7 +69,7 @@ function DonateButton() {
 
     const maneesh = async (formData) => {
         try {
-            const res = await axios.post('http://localhost:8000/api/v1/donations/donate', formData, { withCredentials: true });
+            const res = await axios.post('/api/v1/donations/donate', formData, { withCredentials: true });
             console.log(res.data);
             setAdd('');
             navigate('/successPage');

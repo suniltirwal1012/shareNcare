@@ -14,7 +14,7 @@ export default function Card({ index, data }) {
   async function fetchDonarData() {
     try {
       const reponse = await axios.post(
-        "http://localhost:8000/api/v1/users/findUserById",
+        "/api/v1/users/findUserById",
         { userId: userID }
       );
       setDonarData(reponse.data.data);
@@ -48,7 +48,7 @@ export default function Card({ index, data }) {
   const handleAccept = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/volunteering/accept",
+        "/api/v1/volunteering/accept",
         { donationId: data._id }
       );
       setIsLoading(false);

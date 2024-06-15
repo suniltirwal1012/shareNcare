@@ -16,7 +16,7 @@ function ChangePassword() {
     
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/changePassword",
+        "/api/v1/users/changePassword",
         { newPassword: newPassword }
       );
       setMessage("New Password has been set.");

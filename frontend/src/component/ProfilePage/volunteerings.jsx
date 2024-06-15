@@ -8,7 +8,7 @@ function VolunteeringByUser() {
   async function fetchVolunteerData() {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/users/volunteeringByUser",
+        "/api/v1/users/volunteeringByUser",
         {
           method: "GET",
           headers: {

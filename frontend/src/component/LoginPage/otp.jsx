@@ -19,7 +19,7 @@ function Otp() {
         setIsLoading(true);
         try {
             console.log('Submitting the form');
-            const response = await axios.post('http://localhost:8000/api/v1/users/verify-otp', {
+            const response = await axios.post('/api/v1/users/verify-otp', {
                 email: mail,
                 otp: otp
             });

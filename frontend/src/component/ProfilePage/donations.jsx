@@ -8,7 +8,7 @@ function DonationsByUser() {
   async function fetchVolunteerData() {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/users/donationsDoneByUser",
+        "/api/v1/users/donationsDoneByUser",
         {
           method: "GET",
           headers: {
