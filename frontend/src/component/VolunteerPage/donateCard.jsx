@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
 import UserContext from "../../context/userContext";
