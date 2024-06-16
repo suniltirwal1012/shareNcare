@@ -8,7 +8,7 @@ function VolunteeringByUser() {
   async function fetchVolunteerData() {
     try {
       const response = await fetch(
-        "/api/v1/users/volunteeringByUser",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/volunteeringByUser",
         {
           method: "GET",
           headers: {

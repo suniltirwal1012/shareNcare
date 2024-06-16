@@ -13,7 +13,7 @@ function Drawer() {
     try {
       console.log("Logging out...");
       const response = await axios.post(
-        "/api/v1/users/logout",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/logout",
         {},
         { withCredentials: true }
       );
@@ -67,7 +67,7 @@ function Drawer() {
       console.log("Uploading avatar...");
       setIsUploading(true);
       const response = await axios.post(
-        "/api/v1/users/updateUserAvatar",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/updateUserAvatar",
         formData,
         {
           headers: {

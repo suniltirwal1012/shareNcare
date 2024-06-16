@@ -126,7 +126,7 @@ function GoogleMap() {
 
     if (!window.google) {
       const googleScript = document.createElement('script');
-      googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}g&callback=initAutocomplete&libraries=places&v=weekly`;
+      googleScript.src = `https://maps.googleapis.com/mapshttps://mern-fullstack-72ou.onrender.com/api/js?key=${apiKey}g&callback=initAutocomplete&libraries=places&v=weekly`;
       googleScript.onload = initMap;
       document.head.appendChild(googleScript);
     } else {

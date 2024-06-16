@@ -13,7 +13,7 @@ function Notifications() {
     const [count,setCount]=useState(0)
 
     async function getUnreadMessagesCount() {
-        const response=await axios.get("/api/v1/notifications/getCount")
+        const response=await axios.get("https://mern-fullstack-72ou.onrender.com/api/v1/notifications/getCount")
         setCount(response.data.data.TotalCount)
     }
 

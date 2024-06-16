@@ -69,7 +69,7 @@ function DonateButton() {
 
     const maneesh = async (formData) => {
         try {
-            const res = await axios.post('/api/v1/donations/donate', formData, { withCredentials: true });
+            const res = await axios.post('https://mern-fullstack-72ou.onrender.com/api/v1/donations/donate', formData, { withCredentials: true });
             setAdd('');
             navigate('/successPage');
             

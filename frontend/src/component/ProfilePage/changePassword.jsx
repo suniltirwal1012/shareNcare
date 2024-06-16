@@ -16,7 +16,7 @@ function ChangePassword() {
     
     try {
       const response = await axios.post(
-        "/api/v1/users/changePassword",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/changePassword",
         { newPassword: newPassword }
       );
       setMessage("New Password has been set.");

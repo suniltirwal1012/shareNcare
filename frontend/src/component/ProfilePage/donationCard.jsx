@@ -11,7 +11,7 @@ export default function DonationCard({ index, data }) {
   async function fetchDonarData() {
     try {
       const response = await axios.post(
-        "/api/v1/users/findUserById",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/findUserById",
         { userId: userID }
       );
       setDonarData(response.data.data);

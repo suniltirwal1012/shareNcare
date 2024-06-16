@@ -17,7 +17,7 @@ function ForgotPassword() {
     try {
         console.log(email);
       const response = await axios.post(
-        "/api/v1/users/forgotPassword",
+        "https://mern-fullstack-72ou.onrender.com/api/v1/users/forgotPassword",
         { email: email }
       );
       console.log(response);

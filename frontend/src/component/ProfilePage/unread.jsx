@@ -6,7 +6,7 @@ function Unread() {
     const [messages,setMessages]=useState([])
 
     async function getUnreadMessages(){
-        const res=await axios.put("/api/v1/notifications/readingMessage")
+        const res=await axios.put("https://mern-fullstack-72ou.onrender.com/api/v1/notifications/readingMessage")
         setMessages(res.data.data.messages)
     }
 

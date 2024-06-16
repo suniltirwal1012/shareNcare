@@ -69,7 +69,7 @@ function SignUp() {
     }
 
     await axios
-      .post("/api/v1/users/register", formDataToSend, {
+      .post("https://mern-fullstack-72ou.onrender.com/api/v1/users/register", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
