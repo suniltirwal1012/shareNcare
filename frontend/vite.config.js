@@ -10,7 +10,7 @@ export default defineConfig({
     proxy:{
       '/api':{
         target : "https://mern-fullstack-72ou.onrender.com/",
-        secure: false,
+        secure: true,
         changeOrigin: true,
       }
     }
