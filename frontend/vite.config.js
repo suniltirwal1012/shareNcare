@@ -3,10 +3,16 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [
+    react()
+  ],
   server: {
-    // proxy: {
-    //   '/api': 'https://mern-fullstack-72ou.onrender.com', // Proxy requests with /api to http://localhost:8000
-    // },
-  },
-  plugins: [react()],
+    proxy:{
+      '/api':{
+        target : "https://mern-fullstack-72ou.onrender.com/",
+        secure: false,
+        changeOrigin: true,
+      }
+    }
+  }
 })
