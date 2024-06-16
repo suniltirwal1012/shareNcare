@@ -23,8 +23,6 @@ function DonationsByUser() {
       }
 
       const res = await response.json();
-      console.log(res);
-      console.log("manee", res.data)
       setData(res.data.donations);
     } catch (error) {
       console.error("Error fetching volunteer data:", error);

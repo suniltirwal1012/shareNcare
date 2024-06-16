@@ -54,12 +54,12 @@ function SignUp() {
     setError(""); 
     localStorage.removeItem("formData"); 
     setIsLoading(true); 
-    maneesh();
+    login();
   };
 
   const navigate = useNavigate();
 
-  const maneesh = async () => {
+  const login = async () => {
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
       formDataToSend.append(key, formData[key]);

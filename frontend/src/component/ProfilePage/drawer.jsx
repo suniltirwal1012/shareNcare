@@ -17,7 +17,6 @@ function Drawer() {
         {},
         { withCredentials: true }
       );
-      console.log(response.data.message);
       // Clear the user context
       setUser(null);
       navigate("/login");
@@ -76,7 +75,6 @@ function Drawer() {
           },
         }
       );
-      console.log("Avatar upload response:", response.data);
       setAvatar(response.data.data.avatar);
       setIsUploading(false);
     } catch (error) {
@@ -84,7 +82,6 @@ function Drawer() {
     }
   };
 
-  console.log("Avatar:", avatar);
 
   return (
     <div className="drawer">

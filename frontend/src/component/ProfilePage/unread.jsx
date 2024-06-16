@@ -7,7 +7,6 @@ function Unread() {
 
     async function getUnreadMessages(){
         const res=await axios.put("/api/v1/notifications/readingMessage")
-        console.log(res.data.data.messages)
         setMessages(res.data.data.messages)
     }
 

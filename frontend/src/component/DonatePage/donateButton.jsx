@@ -70,13 +70,11 @@ function DonateButton() {
     const maneesh = async (formData) => {
         try {
             const res = await axios.post('/api/v1/donations/donate', formData, { withCredentials: true });
-            console.log(res.data);
             setAdd('');
             navigate('/successPage');
             
 
         } catch (err) {
-            console.log(err.response);
             setAdd('');
             navigate('/errorPage');
             

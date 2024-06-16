@@ -14,7 +14,6 @@ function Notifications() {
 
     async function getUnreadMessagesCount() {
         const response=await axios.get("/api/v1/notifications/getCount")
-        console.log(response.data.data.TotalCount)
         setCount(response.data.data.TotalCount)
     }
 

@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'https://main--mellow-travesseiro-e69fb6.netlify.app', // Proxy requests with /api to http://localhost:8000
+      '/api': 'https://mern-fullstack-72ou.onrender.com', // Proxy requests with /api to http://localhost:8000
     },
   },
   plugins: [react()],
