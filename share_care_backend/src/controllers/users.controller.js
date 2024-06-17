@@ -307,6 +307,8 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
+    console.log("avatar",avatar)
+    
     if (!avatar) {
         throw new ApiError(500, "Something went wrong while uploading the image.Please try again later.")
     }
@@ -321,6 +323,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
         { new: true }
     ).select("-password")
 
+    console.log("user",user)
     return res
         .status(200)
         .json(new ApiResponse(200, user, "Avatar Image updated successfully."))
