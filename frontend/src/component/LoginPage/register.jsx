@@ -39,7 +39,7 @@ function Login() {
   const loginUser = async () => {
     try {
       const res = await axios.post(
-        "https://mern-fullstack-72ou.onrender.com/api/v1/users/login",
+        "http://localhost:8000/api/v1/users/login",
         formData
       );
       setUser(res.data.data.user);

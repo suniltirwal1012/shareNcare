@@ -5,7 +5,7 @@ export default function ShareOptions() {
     const url = "https://example.com"; // Static URL
 
     const shareOnWhatsApp = () => {
-        window.open(`https:/https://mern-fullstack-72ou.onrender.com/api.whatsapp.com/send?text=${encodeURIComponent(url)}`);
+        window.open(`https:/http://localhost:8000/api.whatsapp.com/send?text=${encodeURIComponent(url)}`);
     };
 
     const shareOnInstagram = () => {

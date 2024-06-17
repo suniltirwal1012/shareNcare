@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
   },
-  "author": "Maneesh Shukla",
+  "author": "Sunil Tirwal",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.0",

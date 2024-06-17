@@ -39,7 +39,7 @@ function DonateButton() {
             time,
             address: add ,
         };    
-        maneesh(formData);
+        makeRequest(formData);
     
        
     };
@@ -67,9 +67,9 @@ function DonateButton() {
     };
 
 
-    const maneesh = async (formData) => {
+    const makeRequest = async (formData) => {
         try {
-            const res = await axios.post('https://mern-fullstack-72ou.onrender.com/api/v1/donations/donate', formData, { withCredentials: true });
+            const res = await axios.post('http://localhost:8000/api/v1/donations/donate', formData, { withCredentials: true });
             setAdd('');
             navigate('/successPage');
             

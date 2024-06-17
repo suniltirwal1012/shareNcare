@@ -12,7 +12,7 @@ export default function Card({ index, data }) {
   async function fetchDonarData() {
     try {
       const reponse = await axios.post(
-        "https://mern-fullstack-72ou.onrender.com/api/v1/users/findUserById",
+        "http://localhost:8000/api/v1/users/findUserById",
         { userId: userID }
       );
       setDonarData(reponse.data.data);
@@ -46,7 +46,7 @@ export default function Card({ index, data }) {
   const handleAccept = async () => {
     try {
       const res = await axios.post(
-        "https://mern-fullstack-72ou.onrender.com/api/v1/volunteering/accept",
+        "http://localhost:8000/api/v1/volunteering/accept",
         { donationId: data._id }
       );
       setIsLoading(false);
