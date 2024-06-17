@@ -48,7 +48,6 @@ function Login() {
       setShowSuccessMessage(true);
       setTimeout(() => {
         console.log("Logged in successfully");
-        console.log(res.data);
         navigateToProfile("/profile");
       }, 2000);
     } catch (error) {

@@ -53,7 +53,7 @@ function Drawer() {
       return;
     }
 
-    setAvatar(file);
+    //setAvatar(file);
 
     // Call handleAvatarUpload directly when a file is selected
     await handleAvatarUpload(file);
@@ -76,6 +76,7 @@ function Drawer() {
         }
       );
       setAvatar(response.data.data.avatar);
+      console.log("Avatar uploaded successfully:", response.data.data.avatar);
       setIsUploading(false);
     } catch (error) {
       console.error("Error uploading avatar:", error);
