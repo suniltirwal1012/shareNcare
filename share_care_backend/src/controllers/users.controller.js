@@ -328,7 +328,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponse(200, user, "Avatar Image updated successfully."))
 
-})
+});
 
 
 // Controller function to get donations by current user

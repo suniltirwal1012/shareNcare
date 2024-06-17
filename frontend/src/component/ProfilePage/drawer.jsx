@@ -75,7 +75,8 @@ function Drawer() {
           },
         }
       );
-      setAvatar(response.data.data.avatar);
+      setUser(response.data.data);
+      //setAvatar(response.data.data.avatar);
       console.log("Avatar uploaded successfully:", response.data.data.avatar);
       setIsUploading(false);
     } catch (error) {
