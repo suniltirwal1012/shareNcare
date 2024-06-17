@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import UserContext from "../../context/userContext";
 import axios from "axios";
 
@@ -25,7 +25,7 @@ function Drawer() {
     }
   };
 
-  //avatat upload
+  // Avatar upload
   const [isUploading, setIsUploading] = useState(false);
   const [avatar, setAvatar] = useState(
     user?.avatar
@@ -33,6 +33,10 @@ function Drawer() {
       : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
   );
   const fileInputRef = useRef(null); // Ref for file input element
+
+  useEffect(() => {
+    setAvatar(user?.avatar ? user.avatar : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg");
+  }, [user]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -53,9 +57,6 @@ function Drawer() {
       return;
     }
 
-    //setAvatar(file);
-
-    // Call handleAvatarUpload directly when a file is selected
     await handleAvatarUpload(file);
   };
 
@@ -73,17 +74,27 @@ function Drawer() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true, // Ensure cookies are sent
         }
       );
-      setUser(response.data.data);
-      //setAvatar(response.data.data.avatar);
-      console.log("Avatar uploaded successfully:", response.data.data.avatar);
+
+      if (response.data && response.data.data && response.data.data.avatar) {
+        setAvatar(response.data.data.avatar);
+        setUser((prevUser) => ({
+          ...prevUser,
+          avatar: response.data.data.avatar,
+        }));
+        console.log("Avatar uploaded successfully:", response.data.data.avatar);
+      } else {
+        console.error("Unexpected response structure:", response);
+      }
+
       setIsUploading(false);
     } catch (error) {
       console.error("Error uploading avatar:", error);
+      setIsUploading(false);
     }
   };
-
 
   return (
     <div className="drawer">
